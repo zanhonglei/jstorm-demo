@@ -79,7 +79,7 @@ public class RandomIntegerSpout implements IRichSpout {
     @Override
     public void nextTuple() {
         Utils.sleep(100);
-        collector.emit("random-stream",new Values(rand.nextInt(1000), System.currentTimeMillis() - (24 * 60 * 60 * 1000), ++msgId),
+        collector.emit(new Values(rand.nextInt(1000), System.currentTimeMillis() - (24 * 60 * 60 * 1000), ++msgId),
                 msgId);
     }
 
