@@ -57,14 +57,13 @@ public class UserModifyBolt implements IRichBolt {
      */
     @Override
     public void execute(Tuple input) {
-        Fields fields = input.getFields();
-        String userInfoBuffer = fields.get(0);
-        logger.info(userInfoBuffer);
-        UserInfo userInfo = (UserInfo) JSON.parse(userInfoBuffer);
+        UserInfo userInfo = (UserInfo) input.getValueByField("users");
+
+        logger.info(JSON.toJSONString(userInfo));
         userInfo.setAge("11111111");
         userInfo.setName(Utils.getRandomString(5));
         userInfo.setId("22222222");
-        collector.emit(new Values(userInfo));
+//        collector.emit(new Values(userInfo));
     }
 
     /**

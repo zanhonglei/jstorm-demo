@@ -11,6 +11,7 @@ import com.xy.topology.model.UserInfo;
 import com.xy.topology.utils.Utils;
 import shade.storm.org.json.simple.JSONValue;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
@@ -43,10 +44,7 @@ public class FetchUserSpout extends BaseRichSpout {
         userInfo.setAge(String.valueOf(_rand.nextInt()));
         userInfo.setName(Utils.getRandomString(5));
         userInfo.setId(String.valueOf(_rand.nextInt()));
-
-        Fields fields = new Fields(JSON.toJSONString(userInfo));
-
-        collector.emit(new Values(fields));
+        collector.emit(new Values(userInfo,new Date()));
 
     }
 
@@ -60,6 +58,7 @@ public class FetchUserSpout extends BaseRichSpout {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("word"));
+        //第一个key是 users 依次类推
+        declarer.declare(new Fields("users","time"));
     }
 }

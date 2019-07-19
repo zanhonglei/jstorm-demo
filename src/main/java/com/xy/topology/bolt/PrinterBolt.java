@@ -4,6 +4,9 @@ import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseBasicBolt;
 import backtype.storm.tuple.Tuple;
+import com.alibaba.fastjson.JSON;
+import org.apache.log4j.Logger;
+
 
 /**
  * @author zanhonglei
@@ -14,9 +17,11 @@ import backtype.storm.tuple.Tuple;
  */
 public class PrinterBolt extends BaseBasicBolt {
 
+    private static Logger logger = Logger.getLogger(PrinterBolt.class);
+
     @Override
     public void execute(Tuple tuple, BasicOutputCollector collector) {
-        System.out.println(tuple);
+        logger.info(JSON.toJSONString(tuple));
     }
 
     @Override
